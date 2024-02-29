@@ -34,7 +34,7 @@ bk72xx:
   board: cb2s
 
 # This board uses the RX/TX pins for POW chip serial and cannot log over uart
-logger: !extend
+logger:
   baud_rate: 0
 
 status_led:

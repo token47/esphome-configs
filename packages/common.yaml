@@ -37,6 +37,6 @@ text_sensor:
   # esphome version (build number and date)
   - platform: version
     name: "ESPHome Build"
-  # Up time
-  - platform: uptime
-    name: "Uptime"
+#  # Up time
+#  - platform: uptime
+#    name: "Uptime"
