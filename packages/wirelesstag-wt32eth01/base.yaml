@@ -2,5 +2,6 @@
 esp32:
   board: wt32-eth01
 
-# this board has no (useable) leds
+# This board has no (useable) leds or buttons or relays
+# Everything will go into main module
 

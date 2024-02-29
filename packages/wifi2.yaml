@@ -31,6 +31,11 @@ wifi:
       password: !secret wifi_pass
       priority: 1
 
+sensor:
+  - platform: wifi_signal
+    name: "NET - Wifi RSSI"
+    update_interval: 30s
+
 text_sensor:
   - platform: wifi_info
     ssid:

@@ -8,6 +8,10 @@
 # long click = turn off
 # The relay led follows relay status irrespective of timeout mode
 
+# defaults that should be overriden in main config
+defaults:
+  timeout_value: 2h
+
 status_led: !remove
 light:
   - platform: status_led

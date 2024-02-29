@@ -19,6 +19,11 @@ wifi:
     - ssid: !secret wifi_ssid
       password: !secret wifi_pass
 
+sensor:
+  - platform: wifi_signal
+    name: "NET - Wifi RSSI"
+    update_interval: 30s
+
 text_sensor:
   - platform: wifi_info
     ssid:
