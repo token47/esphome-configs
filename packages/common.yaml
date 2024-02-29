@@ -1,0 +1,42 @@
+# These are common configs that I use in every board, no matter what the
+# model or architecture.
+# You need to refer to this package before the board specific packages
+# so they can override stuff here (for example disabling uart in logger)
+
+# Enable OTA (this is native OTA on specific port, different from OTA via webserver)
+ota:
+
+# Enable the webserver on default port 80
+web_server:
+
+# Enable logger component
+logger:
+
+# Activate NTP -- please override your timezone in your main config
+time:
+  - platform: sntp
+    id: sntp_time
+    timezone: Americas/Sao_Paulo
+    servers:
+     - 0.pool.ntp.org
+     - 1.pool.ntp.org
+     - 2.pool.ntp.org
+
+button:
+  # Add a virtual button on the web dashboard for resetting the board
+  - platform: restart
+    id: restart_button
+    name: "Restart"
+  # Another for forcing safe mode
+  - platform: safe_mode
+    name: Safe Mode Boot
+    entity_category: diagnostic
+    
+# Add some virtual sensors
+text_sensor:
+  # esphome version (build number and date)
+  - platform: version
+    name: "ESPHome Build"
+  # Up time
+  - platform: uptime
+    name: "Uptime"

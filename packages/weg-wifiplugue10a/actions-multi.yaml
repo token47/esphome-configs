@@ -1,0 +1,104 @@
+# Reconfigure the blue led to be used as a shared_status_led for status_led + fancy feedbacks
+# while the red one is just reflecting relay state
+# Effectively giving us 3 different leds
+
+# This configuration is using 3 different button press patterns
+# short click  = turn on with timeout, blink status led slow
+# double click = turn on without timeout, blink status led fast
+# long click = turn off
+# The relay led follows relay status irrespective of timeout mode
+
+status_led: !remove
+light:
+  - platform: status_led
+    id: shared_status_led
+    name: "Shared Status LED"
+    pin:
+      number: GPIO1 # TX pin
+      mode: OUTPUT
+      inverted: True # True (it is inverted)
+    effects:
+      - strobe:
+          name: "strobefast"
+          colors:
+            - state: true
+              duration: 0.06s
+            - state: false
+              duration: 0.06s
+      - strobe:
+          name: "strobeslow"
+          colors:
+            - state: true
+              duration: 0.20s
+            - state: false
+              duration: 0.20s
+
+script:
+  - id: countdown_to_disable_relay
+    mode: restart
+    then:
+      - delay: ${timeout_value}
+      - switch.turn_off: relay
+  - id: flash_shared_status_led_fast
+    mode: restart
+    then:
+      - light.turn_on:
+          id: shared_status_led
+          effect: strobefast
+      - delay: 1.0s
+      - light.turn_off: shared_status_led
+  - id: flash_shared_status_led_slow
+    mode: restart
+    then:
+      - light.turn_on:
+          id: shared_status_led
+          effect: strobeslow
+      - delay: 1.5s
+      - light.turn_off: shared_status_led
+
+binary_sensor:
+  - id: push_button
+    on_multi_click:
+      # short click: turn on with a timeout
+      # (reset timeout if already on)
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at least 0.5s
+        then:
+          - logger.log: "Detected short click"
+          - switch.turn_on: relay
+          - script.execute: countdown_to_disable_relay
+          - script.execute: flash_shared_status_led_slow
+      # long click: turn off
+      - timing:
+          - ON for at least 0.5s
+          - OFF for at least 0.2s
+        then:
+          - logger.log: "Detected long click"
+          - script.stop: countdown_to_disable_relay
+          - switch.turn_off: relay
+      # bouble click: turn on without a timeout
+      # (disable timeout if already on)
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at least 0.2s
+        then:
+          - logger.log: "Detected double click"
+          - script.stop: countdown_to_disable_relay
+          - switch.turn_on: relay
+          - script.execute: flash_shared_status_led_fast
+      #- timing:
+      #    - ON for at least 3s
+      #    - OFF for at least 0.2s
+      #  then:
+
+switch:
+  - id: relay
+    on_turn_on:
+      then:
+        - switch.turn_on: relay_led
+    on_turn_off:
+      then:
+        - switch.turn_off: relay_led

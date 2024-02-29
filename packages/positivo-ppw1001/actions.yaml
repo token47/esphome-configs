@@ -1,0 +1,31 @@
+# This board only has 1 led so we use the shared_status_led
+# for status_led + relay state
+# There is no room for other fancy led feedback
+
+# get rid of the standard status_led in favor of the shared led
+status_led: !remove
+light:
+  - platform: status_led
+    id: shared_status_led
+    name: "Shared status LED"
+    pin:
+      number: PA23
+      mode: OUTPUT
+      inverted: False # False (not inverted)
+
+# Push Button actions
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      - logger.log: "Detected button press"
+      - switch.toggle: relay
+
+# Relay Actions
+switch:
+  - id: relay
+    on_turn_on:
+      then:
+        - light.turn_on: shared_status_led
+    on_turn_off:
+      then:
+        - light.turn_off: shared_status_led

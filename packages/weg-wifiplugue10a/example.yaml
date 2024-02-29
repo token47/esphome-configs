@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "WEG Wifi Plugue 10A"
+  area: "somewhere"
+
+packages:
+  common: !include ..../common.yaml
+  wifi: !include ..../wifi.yaml
+  base: !include ..../weg-wifiplugue10a/base.yaml
+  actions: !include ..../weg-wifiplugue10a/actions.yaml
+
+# Any customization goes here

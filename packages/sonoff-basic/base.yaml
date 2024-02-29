@@ -1,0 +1,51 @@
+# Hardware:
+# - brand: Sonoff, model: Basic, module: n/a, MCU: ESP-8266
+#   (Basic R1, R2, R3 and R4 should have the same hardware)
+#
+# Hardware info: https://devices.esphome.io/devices/Sonoff-BASIC-R2-v1.4
+#
+# Features: Two leds, one relay, one switch
+#
+# +------+---------------------+----------------------------------+---------------------------------+
+# | Name |   Number   | GPIO   | Function                         | Notes                           |
+# +------+---------------------+----------------------------------+---------------------------------+
+# | n/a  |    n/a     | GPIO0  | Push Button w/ hardware pullup   | no need to use pull-up in sw    |
+# | n/a  |    n/a     | GPIO1  | RX for UART                      | Free GPIO if uart disabled      |
+# | n/a  |    n/a     | GPIO3  | TX for UART                      | Free GPIO if uart disabled      | 
+# | n/a  |    n/a     | GPIO12 | Relay, non-inverted              |                                 |
+# | n/a  |    n/a     | GPIO13 | Blue LED, inverted               |                                 |
+# +------+------------+--------+----------------------------------+---------------------------------+
+#
+# Notes:
+# - Pin numbers above are for MCU since there is no module
+# - In some boards, some extra GPIOs are easily accessible on solder points
+# - In this board, the chip is exposed so you could alwasy directly solder to MCU pins
+#   to access other GPIOs. Just remember that many ESP-8285/ESP8266 pins are reserved.
+
+esp8266:
+  board: esp8285
+
+status_led:
+  id: led
+  pin:
+    number: GPIO13
+    mode: OUTPUT
+    inverted: True
+
+binary_sensor:
+  - platform: gpio
+    name: "Push Button"
+    id: push_button
+    pin:
+      number: GPIO0
+      mode: INPUT
+      inverted: True
+
+switch:
+  - platform: gpio
+    name: "Relay"
+    id: relay
+    pin:
+      number: GPIO12
+      mode: OUTPUT
+      inverted: False

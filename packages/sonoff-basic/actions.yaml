@@ -1,0 +1,13 @@
+# This board has 2 leds, but one of them (Blue) is controlable and the other
+# one (Red) is hardwired to the relay and cannot be controlled. Good side is
+# that you don't need to do fancy shared status led to reflect relay state.
+
+# Actions defined here:
+# - press the switch, toggle the relay
+#
+# There's not led control because the red led is hardwired to relay already
+
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      - switch.toggle: relay

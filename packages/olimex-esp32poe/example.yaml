@@ -1,0 +1,13 @@
+esphome:
+  name: somename
+  comment: "Olimex ESP32-POE Eth"
+  area: "somewhere"
+
+packages:
+  common: !include ..../common.yaml
+  wifi: !include ..../wifi.yaml
+  base: !include .../olimex-esp32poe/base.yaml
+  #ethernet: !include .../olimex-esp32poe/ethernet.yaml
+  #actions: !include .../olimex-esp32poe/actions.yaml # no pre-defined actions for this device
+
+# Any customization goes here

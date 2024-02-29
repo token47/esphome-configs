@@ -1,0 +1,105 @@
+# Hardware:
+# - brand: Positivo, model: PPW1001, module: Tuya WR2, MCU: RTL8710BN, w/ POW
+
+# Module info: https://docs.libretiny.eu/boards/wr2/
+
+# Features:
+# One led, one relay, one switch, power measurement
+# 
+# +------+--------------------+------------------------------------+------------------------------+
+# | Name |   Number   | GPIO  | Function                           | Notes                        |
+# +------+--------------------+------------------------------------+------------------------------+
+# | CEN  |     10     |       | reset (not connected)              |                              |
+# | ADC2 |      8     |  ADC  | analogic input (not connected)     | Free GPIO (ADC, input only)  | 
+# | PWM4 |      6     |  PA5  | bl0937 CF                          |                              |
+# | PWM2 |      4     |  PA0  |                                    | Free GPIO                    |
+# | PWM3 |      2     |  PA12 | bl0937 CF1                         |                              |
+# | 3V3  |      1     |       | power                              |                              |
+# | GND  |      3     |       | power                              |                              |
+# | RX0  |      5     |  PA18 | Push Button w/ hw pullup, inverted | no need to use pull-up in sw |
+# | TX0  |      7     |  PA23 | Blue led, non-inverted             |                              |
+# | PWM0 |      9     |  PA14 | Relay, non-inverted                |                              |
+# | PWM1 |     11     |  PA15 | bl0937 SEL, inverted               |                              |
+# | TX2  | test point |  PA30 | (not connected)                    | Free GPIO                    |
+# | RX2  | test point |  PA29 | (not connected)                    | Free GPIO                    |
+# +------+------------+-------+------------------------------------+------------------------------+
+#
+# Notes:
+# - Pin numbers above are for the module, not the MCU (this module has different
+#   order of pins than most of the others, pay attention to the docs)
+# - These are the GPIOs that you can actually access outside of the module
+#   the chip inside has many more free GPIOs but they are not exposed so
+#   you cannot actually use them for anything useful.
+# - On this module, flashing is done through TX2/RX2 (testpoints), not the ones on the bottom
+# - GPIOA_0 (PA0) cannot be pulled high on boot!
+
+rtl87xx:
+  board: wr2
+
+status_led:
+  id: led
+  name: "Status LED"
+  pin:
+    number: PA23
+    mode: OUTPUT
+    inverted: False # False (not inverted)
+
+binary_sensor:
+  - platform: gpio
+    name: "Push Button"
+    id: push_button
+    pin:
+      number: PA18
+      mode: INPUT
+      inverted: True
+
+switch:
+  # the relay
+  - platform: gpio
+    name: "Relay"
+    id: relay
+    pin:
+      number: PA14
+      mode: OUTPUT
+      inverted: False
+
+# RTL8710N chips do not seem to like this POW sensor (causes bootloop), leaving off
+#sensor:
+#  - platform: hlw8012
+#    id: power_sensor
+#    model: BL0937
+#    sel_pin:
+#      number: PA15
+#      inverted: true
+#    cf_pin: PA5
+#    cf1_pin: PA12
+#    change_mode_every: never
+#    update_interval: 5s
+#    current_resistor: 0.001 ohm
+#    voltage_divider: 2351 # datasheet = 2821, esphome doc = 2351
+#    current:
+#      id: current
+#      name: "POW - Current"
+#      unit_of_measurement: "A"
+#      accuracy_decimals: 3
+#      #filters:
+#      #  - multiply: 1.0
+#    voltage:
+#      id: voltage
+#      name: "POW - Voltage"
+#      unit_of_measurement: "V"
+#      filters:
+#        - multiply: 0.707 # Peak -> RMS
+#        - multiply: 0.983 # Correction
+#    power:
+#      id: power
+#      name: "POW - Power"
+#      unit_of_measurement: "W"
+#      #filters:
+#      #  - multiply: 1.0
+#    energy:
+#      id: energy
+#      name: "POW - Energy"
+#      unit_of_measurement: "Wh"
+#      #filters:
+#      #  - multiply: 1.0

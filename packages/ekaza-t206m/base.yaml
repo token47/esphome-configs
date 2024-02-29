@@ -1,0 +1,103 @@
+# Hardware:
+# - brand: Ekaza, model: T260M, module: Tuya CB2S, MCU: BK7231N, w/ POW
+
+# Module info: https://docs.libretiny.eu/boards/cb2s/
+
+# Features:
+# One led, one relay, one switch, power measurement
+# 
+# +------+--------------------+------------------------------------+------------------------------+
+# | Name |   Number   | GPIO  | Function                           | Notes                        |
+# +------+--------------------+------------------------------------+------------------------------+
+# | CEN  |      1     |       | reset (not connected)              |                              |
+# | ADC3 |      2     |  P23  | analogic input (not connected)     | Free GPIO (ADC, input only)  | 
+# | PWM2 |      3     |  P8   | Blue led, inverted                 |                              |
+# | PWM1 |      4     |  P7   | (not connected)                    | Free GPIO                    |
+# | PWM0 |      5     |  P6   | (not connected)                    | Free GPIO                    |
+# | 3V3  |      6     |       | power                              |                              |
+# | GND  |      7     |       | power                              |                              |
+# | RX1  |      8     |  P10  | uart rx - POW tx                   |                              |
+# | TX1  |      9     |  P11  | uart tx - POW rx                   |                              |
+# | PWM4 |     10     |  P24  | Push Button w/ hw pullup, inverted | no need to use pull-up in sw |
+# | PWM5 |     11     |  P26  | Relay, non-inverted                |                              |
+# | SCL2 | test point |  P0   | (not connected)                    | Free GPIO                    |
+# | SDA2 | test point |  P1   | (not connected)                    | Free GPIO                    |
+# | SDA1 | test point |  P21  | (not connected)                    | Free GPIO                    |
+# +------+------------+-------+------------------------------------+------------------------------+
+#
+# Note: Pin numbers above are for the module, not the MCU
+# Note2: These are the GPIOs that you can actually access outside of the module
+#        the chip inside has many more free GPIOs but they are not exposed so
+#        you cannot actually use them for anything useful.
+
+bk72xx:
+  board: cb2s
+
+# This board uses the RX/TX pins for POW chip serial and cannot log over uart
+logger: !extend
+  baud_rate: 0
+
+status_led:
+  id: led
+  name: "Status LED"
+  pin:
+    number: P8
+    mode: OUTPUT
+    inverted: True
+
+binary_sensor:
+  - platform: gpio
+    name: "Push Button"
+    id: push_button
+    pin:
+      number: P24
+      mode: INPUT
+      inverted: True
+
+switch:
+  - platform: gpio
+    name: "Relay"
+    id: relay
+    pin:
+      number: P26
+      mode: OUTPUT
+      inverted: False
+
+uart:
+  id: power_uart_bus
+  tx_pin: TX1
+  rx_pin: RX1
+  baud_rate: 4800
+  stop_bits: 1
+
+sensor:
+  - platform: bl0942
+    id: power_sensor
+    uart_id: power_uart_bus
+    update_interval: 5s
+    current:
+      id: current
+      name: "POW - Current"
+      unit_of_measurement: "A"
+      accuracy_decimals: 3
+    voltage:
+      id: voltage
+      name: "POW - Voltage"
+      unit_of_measurement: "V"
+      accuracy_decimals: 1
+    power:
+      id: power
+      name: "POW - Power"
+      unit_of_measurement: "W"
+      accuracy_decimals: 1
+      filters:
+        - multiply: -1
+    energy:
+      id: energy
+      name: "POW - Energy"
+      unit_of_measurement: "Wh"
+      accuracy_decimals: 3
+    frequency:
+      name: "POW - Frequency"
+      unit_of_measurement: "Hz"
+      accuracy_decimals: 2

@@ -1,0 +1,20 @@
+# This are the ethernet definitions for this board. It CANNOT be used
+# at the same time as wifi, so if you include this file, make sure
+# you don't include any wifi config.
+#
+# Information about ethernet is always included as a standard, you
+# can remove/delete it from your main config if you prefer.
+
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO0_IN
+  phy_addr: 1
+  power_pin: GPIO16
+
+# unfortunately the ethernet info only has IP address for now
+text_sensor:
+  - platform: ethernet_info
+    ip_address:
+      name: "NET - IP Address"

@@ -1,0 +1,7 @@
+# Simple mqtt config, you can extend it in your main config
+# or just ignore this one and define your own
+
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_username
+  password: !secret mqtt_password

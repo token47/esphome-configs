@@ -1,0 +1,44 @@
+# Hardware:
+# - Olimex ESP32-POE, MCU: ESP-32, w/ ethernet port
+#
+# Board info: https://www.olimex.com/Products/IoT/ESP32/ESP32-POE/open-source-hardware
+#
+# This board have all GPIOs exposed in headers on the board, so the documentation
+# above should be sufficient to understand it
+#
+# It does not have any peripheral except a button (two buttons actually
+# but the other one is hardware reset). Not even a LED (only the power and the TX/RX
+# ones, but those are not controllable). It does have Bluetooth.
+
+esp32:
+  #board: esp32-poe-iso
+  board: esp32-poe
+  framework:
+    # not sure which one is best
+    type: arduino
+    #type: esp-idf
+
+binary_sensor:
+  - platform: gpio
+    name: "FLASH Push Button"
+    id: push_button
+    pin:
+      number: GPIO0
+      mode: INPUT
+      inverted: True
+
+#sensor:
+#  - platform: adc
+#    pin: A0
+#    name: "SENSOR - ADC"
+#    update_interval: 60s
+
+#esp32_ble_tracker:
+#  scan_parameters:
+#    interval: 1100ms
+#    window: 1100ms
+#    active: true
+
+#bluetooth_proxy:
+#  active: true
+

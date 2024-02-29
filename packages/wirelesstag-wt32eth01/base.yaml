@@ -1,0 +1,6 @@
+
+esp32:
+  board: wt32-eth01
+
+# this board has no (useable) leds
+

@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "Sonoff Basic"
+  area: "somewhere"
+
+packages:
+  common: !include ..../common.yaml
+  wifi: !include ..../wifi.yaml
+  base: !include ..../sonoff-basic/base.yaml
+  actions: !include ..../sonoff-basic/actions.yaml
+
+# Any customization goes here

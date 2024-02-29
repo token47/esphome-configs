@@ -1,0 +1,13 @@
+esphome:
+  name: somename
+  comment: "WirelessTag WT32-ETH01 board"
+  area: "somewhere"
+
+packages:
+  common: !include ..../common.yaml
+  wifi: !include ..../wifi.yaml
+  base: !include .../wirelesstag-wt32eth01/base.yaml
+  #ethernet: !include .../wirelesstag-wt32eth01/ethernet.yaml
+  #actions: !include .../wirelesstag-wt32eth01/actions.yaml # no pre-defined actions for this device
+
+# Any customization goes here

@@ -1,0 +1,18 @@
+
+# No leds definitions here because this board already has 2 controllable leds
+# and we can use the second for the relay, keeping the first as a normal
+# status_led (which is already defined in base.yaml)
+
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      - switch.toggle: relay
+
+switch:
+  - id: relay
+    on_turn_on:
+      then:
+        - switch.turn_on: relay_led
+    on_turn_off:
+      then:
+        - switch.turn_off: relay_led

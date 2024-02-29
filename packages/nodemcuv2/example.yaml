@@ -1,0 +1,13 @@
+esphome:
+  name: somename
+  comment: "NodeMCUv2 (ESP-12E) board DIY"
+  area: "Somewhere"
+
+packages:
+  common: !include ..../common.yaml
+  wifi: !include ..../wifi.yaml
+  base: !include ..../nodemcuv2/base.yaml
+  #actions: !include ..../nodemcuv2/actions.yaml # no pre-defined actions for this device
+
+# Any customization goes here
+

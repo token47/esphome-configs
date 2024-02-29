@@ -1,0 +1,48 @@
+# This is a second option for wifi config, in case you need something
+# a little more complex than the wifi.yaml basic one.
+#
+# It will have two networks, second one will be higher priority and
+# first one lower priority, where the second one is the same as the
+# main one on the other config.
+#
+# The idea is that this is used on some devices that I take to a second
+# location (therefore the second wifi is priority) but eventually have
+# to brin back home for maintenance (therefore my main wifi network
+# as second priority for them).
+#
+# For any other options, make your own local wifi config and add it
+# as a package instead.
+#
+# Wifi fast_connect cannot be used when listing more than one network.
+#
+# On the wifi_info text sensor, the scan_results is left out because it is too
+# noisy/verbose. It can be overriden (extended) in your main config if you want it.
+#
+# Information about wifi will be always added as a standard. You can remove/delete
+# it in your main config if you don't really want/need it.
+
+wifi:
+  fast_connect: False # the default
+  networks:
+    - ssid: !secret wifi_ssid2
+      password: !secret wifi_pass2
+      priority: 0
+    - ssid: !secret wifi_ssid
+      password: !secret wifi_pass
+      priority: 1
+
+text_sensor:
+  - platform: wifi_info
+    ssid:
+      name: "NET - Wifi SSID"
+    bssid:
+      name: "NET - Wifi BSSID"
+    ip_address:
+      name: "NET - IP Address"
+    dns_address:
+      name: "NET - DNS Address"
+    mac_address:
+      name: "NET - Wifi MAC Address"
+    #scan_results:
+    #  name: "NET - Latest Scan Results"
+

@@ -1,0 +1,35 @@
+# This board only has 1 led at P8 so I prefer to use the
+# shared status led feature for status_led and relay state at the same time
+# There is no room for other fancy led feedback like click feedback, flashing, etc.
+
+# Actions defined here:
+# - press the switch, toggle the relay
+# - switch status is reflected in the led (shared_status_led in this case)
+
+# get rid of the standard status_led in favor of the shared led
+status_led: !remove
+light:
+  - platform: status_led
+    id: shared_status_led
+    name: "Shared status LED"
+    pin:
+      number: P8
+      mode: OUTPUT
+      inverted: True
+
+# Push Button actions
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      - logger.log: "Detected button press"
+      - switch.toggle: relay
+
+# Relay Actions
+switch:
+  - id: !extend relay
+    on_turn_on:
+      then:
+        - light.turn_on: shared_status_led
+    on_turn_off:
+      then:
+        - light.turn_off: shared_status_led

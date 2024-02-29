@@ -1,0 +1,36 @@
+# This is a very generic wifi config for one network with hardcoded
+# secret names, if you want something custom, create a variation of
+# this file locally and include that one as package instead
+
+# Wifi fast_connect goes straight to connection without scanning all networks
+# first. It will make it faster, but will just blindly connect to the first SSID
+# that matches, while if you do a scan, it can select the one with best signal
+# in a mesh configuration. It is off here but can be overriden (extended) in main.
+
+# On the wifi_info text sensor, the scan_results is left out because it is too
+# noisy/verbose. It can be overriden (extended) in your main config if you want it.
+
+# Information about wifi will be always added as a standard. You can remove/delete
+# it in your main config if you don't really want/need it.
+
+wifi:
+  fast_connect: False # the default
+  networks:
+    - ssid: !secret wifi_ssid
+      password: !secret wifi_pass
+
+text_sensor:
+  - platform: wifi_info
+    ssid:
+      name: "NET - Wifi SSID"
+    bssid:
+      name: "NET - Wifi BSSID"
+    ip_address:
+      name: "NET - IP Address"
+    dns_address:
+      name: "NET - DNS Address"
+    mac_address:
+      name: "NET - Wifi MAC Address"
+    #scan_results:
+    #  name: "NET - Latest Scan Results"
+
