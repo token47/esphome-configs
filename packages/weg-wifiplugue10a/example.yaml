@@ -4,9 +4,9 @@ esphome:
   area: "somewhere"
 
 packages:
-  common: !include ..../common.yaml
-  wifi: !include ..../wifi.yaml
-  base: !include ..../weg-wifiplugue10a/base.yaml
-  actions: !include ..../weg-wifiplugue10a/actions.yaml
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/weg-wifiplugue10a/base.yaml
+  actions: !include esphome-configs/packages/weg-wifiplugue10a/actions.yaml
 
-# Any customization goes here
+# Any customization go here

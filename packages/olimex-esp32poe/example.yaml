@@ -4,10 +4,10 @@ esphome:
   area: "somewhere"
 
 packages:
-  common: !include ..../common.yaml
-  wifi: !include ..../wifi.yaml
-  base: !include .../olimex-esp32poe/base.yaml
-  #ethernet: !include .../olimex-esp32poe/ethernet.yaml
-  #actions: !include .../olimex-esp32poe/actions.yaml # no pre-defined actions for this device
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/olimex-esp32poe/base.yaml
+  #ethernet: !include esphome-configs/packages/olimex-esp32poe/ethernet.yaml
+  actions: !include esphome-configs/packages/olimex-esp32poe/actions.yaml
 
-# Any customization goes here
+# Any customization go here

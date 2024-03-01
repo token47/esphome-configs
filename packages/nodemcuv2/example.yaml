@@ -4,10 +4,10 @@ esphome:
   area: "Somewhere"
 
 packages:
-  common: !include ..../common.yaml
-  wifi: !include ..../wifi.yaml
-  base: !include ..../nodemcuv2/base.yaml
-  #actions: !include ..../nodemcuv2/actions.yaml # no pre-defined actions for this device
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/nodemcuv2/base.yaml
+  actions: !include esphome-configs/packages/nodemcuv2/actions.yaml
 
-# Any customization goes here
+# Any customization go here
 

@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "Positivo PPW1001"
+  area: "somewhere"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/positivo-ppw1001/base.yaml
+  actions: !include esphome-configs/packages/positivo-ppw1001/actions.yaml
+
+# Any customization go here

@@ -4,10 +4,10 @@ esphome:
   area: "somewhere"
 
 packages:
-  common: !include ..../common.yaml
-  wifi: !include ..../wifi.yaml
-  base: !include .../wirelesstag-wt32eth01/base.yaml
-  #ethernet: !include .../wirelesstag-wt32eth01/ethernet.yaml
-  #actions: !include .../wirelesstag-wt32eth01/actions.yaml # no pre-defined actions for this device
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/wirelesstag-wt32eth01/base.yaml
+  #ethernet: !include esphome-configs/packages/wirelesstag-wt32eth01/ethernet.yaml
+  actions: !include esphome-configs/packages/wirelesstag-wt32eth01/actions.yaml
 
-# Any customization goes here
+# Any customization go here

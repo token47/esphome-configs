@@ -4,10 +4,10 @@ esphome:
   area: "somewhere"
 
 packages:
-  common: github://token47/esphome-configs/packages/common.yaml
-  wifi: github://token47/esphome-configs/packages/wifi.yaml
-  base: github://token47/esphome-configs/packages/ekaza-t206m/base.yaml
-  actions: github://token47/esphome-configs/packages/ekaza-t206m/actions.yaml
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/ekaza-t206m/base.yaml
+  actions: !include esphome-configs/packages/ekaza-t206m/actions.yaml
 
-# Any customization goes here
+# Any customization go here
 
