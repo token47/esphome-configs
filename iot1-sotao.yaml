@@ -4,11 +4,11 @@ esphome:
   area: "Water tank at rooftop"
 
 packages:
-  common: !include esphome-configs/packages/common.yaml
-  wifi: !include esphome-configs/packages/wifi.yaml
-  mqtt: !include esphome-configs/packages/mqtt.yaml
-  base: !include esphome-configs/packages/nodemcuv2/base.yaml
-  actions: !include esphome-configs/packages/nodemcuv2/actions.yaml
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  mqtt: !include packages/mqtt.yaml
+  base: !include packages/nodemcuv2/base.yaml
+  actions: !include packages/nodemcuv2/actions.yaml
 
 # Any customization go here
 

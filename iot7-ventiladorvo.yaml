@@ -4,10 +4,10 @@ esphome:
   area: "Ventilador vo"
 
 packages:
-  common: !include esphome-configs/packages/common.yaml
-  wifi: !include esphome-configs/packages/wifi2.yaml
-  base: !include esphome-configs/packages/weg-wifiplugue10a/base.yaml
-  actions: !include esphome-configs/packages/weg-wifiplugue10a/actions-multi.yaml
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi2.yaml
+  base: !include packages/weg-wifiplugue10a/base.yaml
+  actions: !include packages/weg-wifiplugue10a/actions-multi.yaml
 
 # Any customization go here
 

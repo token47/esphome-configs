@@ -4,10 +4,10 @@ esphome:
   area: "Porta do escritorio"
 
 packages:
-  common: !include esphome-configs/packages/common.yaml
-  wifi: !include esphome-configs/packages/wifi.yaml
-  base: !include esphome-configs/packages/ekaza-t206m/base.yaml
-  actions: !include esphome-configs/packages/ekaza-t206m/actions.yaml
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  base: !include packages/ekaza-t206m/base.yaml
+  actions: !include packages/ekaza-t206m/actions.yaml
 
 # Any customization go here
 
