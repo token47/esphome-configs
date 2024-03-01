@@ -3,6 +3,12 @@
 
 # TODO: check all other parameters possible for the camera
 
+# default values for some of the parameters
+substitutions:
+  param_esp32_camera_id: "camera"
+  param_esp32_camera_streamport: "8080"
+  param_esp32_camera_snapshotport: "8081"
+
 # the camera component
 esp32_camera:
   id: ${param_esp32_camera_id}

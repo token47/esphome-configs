@@ -63,7 +63,5 @@ packages:
       param_esp32_camera_idleframerate: "0.05 fps"
       param_esp32_camera_resolution: "1024x768"
       param_esp32_camera_jpegquality: "35"
-      param_esp32_camera_streamport: "8080"
-      param_esp32_camera_snapshotport: "8081"
 
 # TODO: add SD-card slot support
