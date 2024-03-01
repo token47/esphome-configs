@@ -1,0 +1,38 @@
+
+# Macro for power BL0942
+
+sensor:
+  - platform: bl0942
+    id: ${parm_power_bl0942_id}
+    uart_id: ${parm_power_bl0942_uart_id}
+    update_interval: ${parm_power_bl0942_update_interval}
+    current:
+      id: current
+      name: "POW - Current"
+      unit_of_measurement: "A"
+      accuracy_decimals: 3
+      filters:
+        - multiply: ${parm_power_bl0942_current_correction}
+    voltage:
+      id: voltage
+      name: "POW - Voltage"
+      unit_of_measurement: "V"
+      accuracy_decimals: 1
+      filters:
+        - multiply: ${parm_power_bl0942_voltage_correction}
+    power:
+      id: power
+      name: "POW - Power"
+      unit_of_measurement: "W"
+      accuracy_decimals: 1
+      filters:
+        - multiply: -1
+    energy:
+      id: energy
+      name: "POW - Energy"
+      unit_of_measurement: "Wh"
+      accuracy_decimals: 3
+    frequency:
+      name: "POW - Frequency"
+      unit_of_measurement: "Hz"
+      accuracy_decimals: 2

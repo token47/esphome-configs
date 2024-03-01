@@ -1,0 +1,38 @@
+
+# Macro for power sensor BL0937
+
+sensor:
+  - platform: hlw8012
+    id: ${parm_power_bl0937_id}
+    model: BL0937
+    sel_pin:
+      number: ${parm_power_bl0937_sel_gpio}
+      inverted: ${parm_power_bl0937_sel_inverted}
+    cf_pin: ${parm_power_bl0937_cf}
+    cf1_pin: ${parm_power_bl0937_cf1}
+    change_mode_every: ${parm_power_bl0937_change_mode_every}
+    update_interval: ${parm_power_bl0937_update_interval}
+    current_resistor: ${parm_power_bl0937_current_resistor}
+    voltage_divider: ${parm_power_bl0937_voltage_divider}
+    current:
+      id: current
+      name: "POW - Current"
+      unit_of_measurement: "A"
+      accuracy_decimals: 3
+      filters:
+        - multiply: ${parm_power_bl0937_current_correction}
+    voltage:
+      id: voltage
+      name: "POW - Voltage"
+      unit_of_measurement: "V"
+      filters:
+        - multiply: 0.707 # Peak -> RMS
+        - multiply: ${parm_power_bl0937_voltage_correction}
+    power:
+      id: power
+      name: "POW - Power"
+      unit_of_measurement: "W"
+    energy:
+      id: energy
+      name: "POW - Energy"
+      unit_of_measurement: "Wh"

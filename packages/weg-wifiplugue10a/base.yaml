@@ -74,42 +74,22 @@ switch:
       mode: OUTPUT
       inverted: True
 
-sensor:
-  - platform: hlw8012
-    id: power_sensor
-    model: BL0937
-    sel_pin:
-      number: GPIO14
-      inverted: true
-    cf_pin: GPIO4
-    cf1_pin: GPIO5
-    change_mode_every: 1
-    update_interval: 5s
-    current_resistor: 0.001 ohm
-    voltage_divider: 2351 # from esphome doc
-    current:
-      id: current
-      name: "POW - Current"
-      unit_of_measurement: "A"
-      accuracy_decimals: 3
-      #filters:
-      #  - multiply: 1.0
-    voltage:
-      id: voltage
-      name: "POW - Voltage"
-      unit_of_measurement: "V"
-      filters:
-        - multiply: 0.707 # Peak -> RMS
-        - multiply: 0.983 # Correction
-    power:
-      id: power
-      name: "POW - Power"
-      unit_of_measurement: "W"
-      #filters:
-      #  - multiply: 1.0
-    energy:
-      id: energy
-      name: "POW - Energy"
-      unit_of_measurement: "Wh"
-      #filters:
-      #  - multiply: 1.0
+# More sensors from macros packages
+# passing parameters directly to include instead of doing substitutions allow
+# you to have multiple instances with different names
+packages:
+  # The power measurement chip BL0937
+  power_sensor: !include
+    file: ../macros/power-bl0937.yaml
+    vars:
+      parm_power_bl0937_id: "power_sensor"
+      parm_power_bl0937_sel_gpio: "GPIO14"
+      parm_power_bl0937_sel_inverted: "True"
+      parm_power_bl0937_cf: "GPIO4"
+      parm_power_bl0937_cf1: "GPIO5"
+      parm_power_bl0937_change_mode_every: "1"
+      parm_power_bl0937_update_interval: "5s"
+      parm_power_bl0937_current_resistor: "0.001 ohm"
+      parm_power_bl0937_voltage_divider: "2351" # from esphome doc
+      parm_power_bl0937_current_correction: "1.0"
+      parm_power_bl0937_voltage_correction: "0.983"

@@ -70,34 +70,16 @@ uart:
   baud_rate: 4800
   stop_bits: 1
 
-sensor:
-  - platform: bl0942
-    id: power_sensor
-    uart_id: power_uart_bus
-    update_interval: 5s
-    current:
-      id: current
-      name: "POW - Current"
-      unit_of_measurement: "A"
-      accuracy_decimals: 3
-    voltage:
-      id: voltage
-      name: "POW - Voltage"
-      unit_of_measurement: "V"
-      accuracy_decimals: 1
-    power:
-      id: power
-      name: "POW - Power"
-      unit_of_measurement: "W"
-      accuracy_decimals: 1
-      filters:
-        - multiply: -1
-    energy:
-      id: energy
-      name: "POW - Energy"
-      unit_of_measurement: "Wh"
-      accuracy_decimals: 3
-    frequency:
-      name: "POW - Frequency"
-      unit_of_measurement: "Hz"
-      accuracy_decimals: 2
+# More sensors from macros packages
+# passing parameters directly to include instead of doing substitutions allow
+# you to have multiple instances with different names
+packages:
+  # The power measurement chip BL0937
+  power_sensor: !include
+    file: ../macros/power-bl0942.yaml
+    vars:
+      parm_power_bl0942_id: "power_sensor"
+      parm_power_bl0942_uart_id: "power_uart_bus"
+      parm_power_bl0942_update_interval: "5s"
+      parm_power_bl0942_current_correction: "1.0"
+      parm_power_bl0942_voltage_correction: "1.0"
