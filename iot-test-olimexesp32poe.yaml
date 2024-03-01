@@ -1,0 +1,13 @@
+esphome:
+  name: iot-test-olimexesp32poe
+  comment: "Olimex ESP32-POE Eth"
+  area: "Unknown"
+
+packages:
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  base: !include packages/olimex-esp32poe/base.yaml
+  actions: !include packages/olimex-esp32poe/actions.yaml
+
+# Any customization go here
+

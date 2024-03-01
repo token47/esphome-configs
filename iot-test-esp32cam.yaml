@@ -1,7 +1,7 @@
 esphome:
   name: iot-test-esp32cam
   comment: "ESP32-Camera Module"
-  area: "somewhere"
+  area: "Unknown"
 
 packages:
   common: !include packages/common.yaml

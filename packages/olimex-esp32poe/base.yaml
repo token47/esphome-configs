@@ -18,12 +18,18 @@ esp32:
     type: arduino
     #type: esp-idf
 
+# In this board, the useable button is NOT connected to GPIO0 as in most other boards
+# Therefore it is a normal button (in fact it is called But1 and not FLASH) on GPI34.
+# GPIO0 is still used as part of the boot process and needs to be pulled down, but it
+# is connected only to the Flow Control Pins of the serial chip so the board will
+# reset and enter programming mode automatically every time you try to upload.
+# GPIO34 is INPUT only so it is called GPI34. It has no impact on booting.
 binary_sensor:
   - platform: gpio
-    name: "FLASH Push Button"
+    name: "Push Button"
     id: push_button
     pin:
-      number: GPIO0
+      number: GPIO34
       mode: INPUT
       inverted: True
 

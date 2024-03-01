@@ -1,7 +1,7 @@
 esphome:
   name: iot-test-esp32devkit
   comment: "ESP32-DEVKIT-V1 (ESP32-WROOM-32)"
-  area: "somewhere"
+  area: "Unknown"
 
 packages:
   common: !include packages/common.yaml
