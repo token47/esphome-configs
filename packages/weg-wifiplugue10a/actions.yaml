@@ -9,7 +9,7 @@ binary_sensor:
       - switch.toggle: relay
 
 switch:
-  - id: relay
+  - id: !extend relay
     on_turn_on:
       then:
         - switch.turn_on: relay_led

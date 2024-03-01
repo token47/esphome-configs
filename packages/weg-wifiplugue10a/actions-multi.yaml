@@ -1,6 +1,6 @@
 # Reconfigure the blue led to be used as a shared_status_led for status_led + fancy feedbacks
 # while the red one is just reflecting relay state
-# Effectively giving us 3 different leds
+# Effectively giving us 3 different led to work with (status_led + 2 ids)
 
 # This configuration is using 3 different button press patterns
 # short click  = turn on with timeout, blink status led slow
@@ -9,7 +9,7 @@
 # The relay led follows relay status irrespective of timeout mode
 
 # defaults that should be overriden in main config
-defaults:
+substitutions:
   timeout_value: 2h
 
 status_led: !remove
@@ -61,7 +61,7 @@ script:
       - light.turn_off: shared_status_led
 
 binary_sensor:
-  - id: push_button
+  - id: !extend push_button
     on_multi_click:
       # short click: turn on with a timeout
       # (reset timeout if already on)
@@ -99,7 +99,7 @@ binary_sensor:
       #  then:
 
 switch:
-  - id: relay
+  - id: !extend relay
     on_turn_on:
       then:
         - switch.turn_on: relay_led

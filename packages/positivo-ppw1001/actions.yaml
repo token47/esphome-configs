@@ -22,7 +22,7 @@ binary_sensor:
 
 # Relay Actions
 switch:
-  - id: relay
+  - id: !extend relay
     on_turn_on:
       then:
         - light.turn_on: shared_status_led

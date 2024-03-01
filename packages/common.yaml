@@ -32,11 +32,12 @@ button:
     name: Safe Mode Boot
     entity_category: diagnostic
     
-# Add some virtual sensors
 text_sensor:
   # esphome version (build number and date)
   - platform: version
     name: "ESPHome Build"
-#  # Up time
-#  - platform: uptime
-#    name: "Uptime"
+
+sensor:
+  - platform: uptime
+    name: "Uptime"
+    update_interval: 60s

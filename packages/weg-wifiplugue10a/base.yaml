@@ -42,7 +42,6 @@ logger:
 # Status led is the Blue one
 status_led:
   id: led
-  name: "Status LED"
   pin:
     number: GPIO1 # TX pin
     mode: OUTPUT
