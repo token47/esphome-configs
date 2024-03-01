@@ -1,0 +1,56 @@
+
+# Some test results at: https://theorangeone.net/posts/esp-home-camera/
+
+# TODO: check all other parameters possible for the camera
+
+# the camera component
+esp32_camera:
+  id: ${param_esp32_camera_id}
+  name: ${param_esp32_camera_name}
+  # hardware definitions
+  external_clock:
+    pin: ${param_esp32_camera_extclockpin}
+    frequency: ${param_esp32_extclockfreq}
+  i2c_pins:
+    sda: ${param_esp32_camera_i2csda}
+    scl: ${param_esp32_camera_i2cscl}
+  data_pins:
+    - ${param_esp32_camera_datapin1}
+    - ${param_esp32_camera_datapin2}
+    - ${param_esp32_camera_datapin3}
+    - ${param_esp32_camera_datapin4}
+    - ${param_esp32_camera_datapin5}
+    - ${param_esp32_camera_datapin6}
+    - ${param_esp32_camera_datapin7}
+    - ${param_esp32_camera_datapin8}
+  vsync_pin: ${param_esp32_camera_vsync}
+  href_pin: ${param_esp32_camera_href}
+  pixel_clock_pin: ${param_esp32_camera_pixelclock}
+  power_down_pin: ${param_esp32_camera_powerdown}
+  # software configurations
+  max_framerate: ${param_esp32_camera_maxframerate}
+  idle_framerate: ${param_esp32_camera_idleframerate}
+  resolution: ${param_esp32_camera_resolution}
+  jpeg_quality: ${param_esp32_camera_jpegquality}
+  #vertical_flip: false
+  #horizontal_mirror: false
+  #special_effect: none
+  #contrast: 0
+  #brightness: 0
+  #saturation: 0
+  #agc_mode: AUTO
+  #aec2: false
+  #ae_level: 0
+  #aec_value: 300
+  #aec_mode: AUTO
+  #agc_value: 0
+  #agc_gain_ceiling: 2X
+  #wb_mode: AUTO
+  #test_pattern: false
+
+# and the webserver to access the camera
+esp32_camera_web_server:
+  - port: ${param_esp32_camera_streamport}
+    mode: stream
+  - port: ${param_esp32_camera_snapshotport}
+    mode: snapshot

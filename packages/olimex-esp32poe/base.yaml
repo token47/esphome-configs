@@ -32,3 +32,5 @@ binary_sensor:
 #    pin: A0
 #    name: "SENSOR - ADC"
 #    update_interval: 60s
+
+# TODO: add SD-card slot support

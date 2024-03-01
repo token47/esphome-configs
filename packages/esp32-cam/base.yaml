@@ -1,0 +1,69 @@
+# Hardware:
+# - brand: ???, model: ESP32-CAM, MCU: ESP-32
+#   There are two boards on top of each other
+#   Top one says: ESP32-CAM
+#   Bottom one says: ESP32-CAM-MB
+#
+# I'll not even try to document all pins for the camera, but I'll say that it
+# is compative with Thinker-AI example from esphome documentation.
+
+esp32:
+  board: esp32dev # not sure there is a better one
+
+# There is not led on the board (except for the flash) therefore no status_led
+
+# Although GPIO0 is present on a button on the board and is used during power
+# on to enter flash mode, it is later used by the cam module and should not be
+# used as a button anymore, so no useable button on this one.
+#binary_sensor:
+#  - platform: gpio
+#    name: "Push Button"
+#    id: push_button
+#    pin:
+#      number: GPIO0
+#      mode: INPUT
+#      inverted: True
+
+# The Flash LED (surprisingly bright, don't look into it)
+switch:
+  - platform: gpio
+    id: camera_flash
+    name: "Camera Flash LED"
+    pin:
+      number: GPIO4
+      mode: OUTPUT
+      inverted: False
+
+packages:
+  # use the camera package, comes with a webserver too
+  # This is not separate in it's own include file because there's only a very small
+  # chance you want to use this board without the cammera, so keeping it together
+  esp32_camera: !include
+    file: ../macros/esp32-camera.yaml
+    vars:
+      param_esp32_camera_id: "camera"
+      param_esp32_camera_name: "ESP-32 Camera"
+      param_esp32_camera_extclockpin: "GPIO0"
+      param_esp32_extclockfreq: "20MHz"
+      param_esp32_camera_i2csda: "GPIO26"
+      param_esp32_camera_i2cscl: "GPIO27"
+      param_esp32_camera_datapin1: "GPIO5"
+      param_esp32_camera_datapin2: "GPIO18"
+      param_esp32_camera_datapin3: "GPIO19"
+      param_esp32_camera_datapin4: "GPIO21"
+      param_esp32_camera_datapin5: "GPIO36"
+      param_esp32_camera_datapin6: "GPIO39"
+      param_esp32_camera_datapin7: "GPIO34"
+      param_esp32_camera_datapin8: "GPIO35"
+      param_esp32_camera_vsync: "GPIO25"
+      param_esp32_camera_href: "GPIO23"
+      param_esp32_camera_pixelclock: "GPIO22"
+      param_esp32_camera_powerdown: "GPIO32"
+      param_esp32_camera_maxframerate: "15 fps"
+      param_esp32_camera_idleframerate: "0.05 fps"
+      param_esp32_camera_resolution: "1024x768"
+      param_esp32_camera_jpegquality: "35"
+      param_esp32_camera_streamport: "8080"
+      param_esp32_camera_snapshotport: "8081"
+
+# TODO: add SD-card slot support

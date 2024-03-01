@@ -1,3 +1,7 @@
+# The reason for this definition to be separate from the base definitions
+# is that you may not want ethernet in favor of wifi, so you can include
+# it separately.
+
 # This are the ethernet definitions for this board. It CANNOT be used
 # at the same time as wifi, so if you include this file, make sure
 # you don't include any wifi config.

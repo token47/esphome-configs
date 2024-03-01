@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "ESP32-Camera Module"
+  area: "somewhere"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/esp32-cam/base.yaml
+  actions: !include esphome-configs/packages/esp32-cam/actions.yaml
+
+# Any customization go here
