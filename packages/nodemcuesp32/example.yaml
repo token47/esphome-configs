@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "ESP32-DEVKIT-V1 (ESP32-WROOM-32)"
+  area: "Somewhere"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/nodemcuesp32/base.yaml
+  actions: !include esphome-configs/packages/nodemcuesp32/actions.yaml
+
+# Any customization go here

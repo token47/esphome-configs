@@ -1,0 +1,12 @@
+esphome:
+  name: iot-test-wt32eth01
+  comment: "WirelessTag WT32-ETH01 board"
+  area: "somewhere"
+
+packages:
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  base: !include packages/wirelesstag-wt32eth01/base.yaml
+  actions: !include packages/wirelesstag-wt32eth01/actions.yaml
+
+# Any customization go here

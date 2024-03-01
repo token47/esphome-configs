@@ -1,0 +1,36 @@
+# Hardware:
+# - brand: DoIT, model: ESP32-DEVKIT-V1 (ESP32-WROOM-32) board, MCU: ESP-32
+#   compatible w/ NodeMCU ESP-32 
+#
+# Board info: https://www.circuitstate.com/pinouts/doit-esp32-devkit-v1-wifi-development-board-pinout-diagram-and-reference/
+#
+# This board have all GPIOs exposed in headers on the board, so the documentation
+# above should be sufficient to understand it
+#
+# It does not have any peripheral except a led and a button (two buttons actually
+# but the other one is hardware reset).
+
+esp32:
+  board: esp32doit-devkit-v1
+
+status_led:
+  id: led
+  pin:
+    number: GPIO2
+    mode: OUTPUT
+    inverted: true
+
+binary_sensor:
+  - platform: gpio
+    name: "FLASH Push Button"
+    id: push_button
+    pin:
+      number: GPIO0
+      mode: INPUT
+      inverted: True
+
+#sensor:
+#  - platform: adc
+#    pin: A0
+#    name: "SENSOR - ADC"
+#    update_interval: 60s
