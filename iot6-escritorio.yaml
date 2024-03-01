@@ -1,0 +1,13 @@
+esphome:
+  name: iot6
+  comment: "EKAZA EKGC-T206M Smart Plug (Tuya CB2S/BK7231N)"
+  area: "Porta do escritorio"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/ekaza-t206m/base.yaml
+  actions: !include esphome-configs/packages/ekaza-t206m/actions.yaml
+
+# Any customization go here
+

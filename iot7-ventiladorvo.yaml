@@ -1,0 +1,16 @@
+esphome:
+  name: iot7
+  comment: "WEG Wifi Plugue 10A"
+  area: "Ventilador vo"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi2.yaml
+  base: !include esphome-configs/packages/weg-wifiplugue10a/base.yaml
+  actions: !include esphome-configs/packages/weg-wifiplugue10a/actions-multi.yaml
+
+# Any customization go here
+
+substitutions:
+  # timeout for relay auto-off
+  timeout_value: 4h

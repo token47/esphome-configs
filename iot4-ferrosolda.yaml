@@ -1,0 +1,17 @@
+esphome:
+  name: iot4
+  comment: "WEG Wifi Plugue 10A"
+  area: "Ferro de solda"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/weg-wifiplugue10a/base.yaml
+  actions: !include esphome-configs/packages/weg-wifiplugue10a/actions-multi.yaml
+
+# Any customization go here
+
+substitutions:
+  # timeout for relay auto-off
+  timeout_value: 2h
+

@@ -1,0 +1,59 @@
+esphome:
+  name: iot1
+  comment: "NodeMCUv2 (ESP-12E) board DIY"
+  area: "Water tank at rooftop"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  mqtt: !include esphome-configs/packages/mqtt.yaml
+  base: !include esphome-configs/packages/nodemcuv2/base.yaml
+  actions: !include esphome-configs/packages/nodemcuv2/actions.yaml
+
+# Any customization go here
+
+sensor:
+  # DHT - temperature & humidity
+  - platform: dht
+    id: ambient_sensor
+    model: AM2302
+    pin:
+      number: GPIO13
+      mode: INPUT
+    temperature:
+      name: "SENSOR - Temperature"
+      unit_of_measurement: "°C"
+      icon: mdi:thermometer
+      accuracy_decimals: 1
+    humidity:
+      name: "SENSOR - Humidity"
+      unit_of_measurement: "%"
+      icon: mdi:water-percent
+      accuracy_decimals: 0
+    update_interval: 60s
+  # Ultrassonic - tank level
+  - platform: ultrasonic
+    id: ultrasonic_sensor
+    name: "SENSOR - Water Tank Level"
+    trigger_pin:
+      number: GPIO14
+      mode: OUTPUT
+    echo_pin:
+      number: GPIO12
+      mode: INPUT
+    icon: mdi:arrow-expand-vertical
+    unit_of_measurement: "%"
+    accuracy_decimals: 2
+    update_interval: 60s
+    filters:
+    - calibrate_linear:
+      - from: 0.21
+        to: 100.0
+      - from: 0.75
+        to: 0.0
+    - median:
+        window_size: 5
+        send_every: 1
+        send_first_at: 1
+
+

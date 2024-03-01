@@ -1,0 +1,12 @@
+esphome:
+  name: iot3
+  comment: "Sonoff Basic R2"
+  area: "Bancada"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/sonoff-basic/base.yaml
+  actions: !include esphome-configs/packages/sonoff-basic/actions.yaml
+
+# Any customization go here
