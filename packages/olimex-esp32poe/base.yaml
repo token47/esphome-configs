@@ -9,6 +9,8 @@
 # It does not have any peripheral except a button (two buttons actually
 # but the other one is hardware reset). Not even a LED (only the power and the TX/RX
 # ones, but those are not controllable). It does have Bluetooth.
+#
+# This board has an SD-card slot but esphome does not seem to have support for SD-cards
 
 esp32:
   #board: esp32-poe-iso
@@ -26,7 +28,7 @@ esp32:
 # GPIO34 is INPUT only so it is called GPI34. It has no impact on booting.
 binary_sensor:
   - platform: gpio
-    name: "Push Button"
+    name: "BUT1 Push Button"
     id: push_button
     pin:
       number: GPIO34
@@ -38,5 +40,3 @@ binary_sensor:
 #    pin: A0
 #    name: "SENSOR - ADC"
 #    update_interval: 60s
-
-# TODO: add SD-card slot support

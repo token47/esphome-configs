@@ -9,42 +9,26 @@ packages:
   mqtt: !include packages/mqtt.yaml
   base: !include packages/nodemcuv2/base.yaml
   actions: !include packages/nodemcuv2/actions.yaml
+  dht: !include
+    file: packages/macros/sensor-dht.yaml
+    vars:
+      param_dht_id: "ambient_sensor"
+      param_dht_model: "AM2302"
+      param_dht_gpio: "GPIO13"
+      param_dht_update_interval: "60s"
+  ultrasonic: !include
+    file: packages/macros/sensor-ultrasonic.yaml
+    vars:
+      param_ultrasonic_id: "ultrasonic_sensor"
+      param_ultrasonic_name: "SENSOR - Water Tank Level"
+      param_ultrasonic_trigger_pin: "GPIO14"
+      param_ultrassonic_echo_pin: "GPIO12"
+      param_ultrasonic_update_interval: "60s"
 
-# Any customization go here
 
 sensor:
-  # DHT - temperature & humidity
-  - platform: dht
-    id: ambient_sensor
-    model: AM2302
-    pin:
-      number: GPIO13
-      mode: INPUT
-    temperature:
-      name: "SENSOR - Temperature"
-      unit_of_measurement: "°C"
-      icon: mdi:thermometer
-      accuracy_decimals: 1
-    humidity:
-      name: "SENSOR - Humidity"
-      unit_of_measurement: "%"
-      icon: mdi:water-percent
-      accuracy_decimals: 0
-    update_interval: 60s
-  # Ultrassonic - tank level
-  - platform: ultrasonic
-    id: ultrasonic_sensor
-    name: "SENSOR - Water Tank Level"
-    trigger_pin:
-      number: GPIO14
-      mode: OUTPUT
-    echo_pin:
-      number: GPIO12
-      mode: INPUT
-    icon: mdi:arrow-expand-vertical
-    unit_of_measurement: "%"
-    accuracy_decimals: 2
-    update_interval: 60s
+  # add some filters to ultrasonic sensor
+  - id: !extend ultrasonic_sensor
     filters:
     - calibrate_linear:
       - from: 0.21
@@ -55,5 +39,3 @@ sensor:
         window_size: 5
         send_every: 1
         send_first_at: 1
-
-

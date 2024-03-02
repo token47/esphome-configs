@@ -1,0 +1,6 @@
+# Hardware:
+# - model: ESP32-WROOM-32, MCU: ESP-32
+#   The bare module, without a board
+
+esp32:
+  board: esp32dev

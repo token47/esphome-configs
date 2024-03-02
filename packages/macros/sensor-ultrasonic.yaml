@@ -1,0 +1,19 @@
+
+# Macro for ultrasonic sensor (like the ones in car rear bumpers)
+
+# https://esphome.io/components/sensor/ultrasonic.html 
+
+sensor:
+  - platform: ultrasonic
+    id: ${param_ultrasonic_id}
+    name: ${param_ultrasonic_name}
+    trigger_pin:
+      number: ${param_ultrasonic_trigger_pin}
+      mode: OUTPUT
+    echo_pin:
+      number: ${param_ultrassonic_echo_pin}
+      mode: INPUT
+    icon: mdi:arrow-expand-vertical
+    unit_of_measurement: "%"
+    accuracy_decimals: 2
+    update_interval: ${param_ultrasonic_update_interval}

@@ -1,0 +1,23 @@
+# Macro for DHT Temporature + Humidity Sensor
+#
+# https://esphome.io/components/sensor/dht.html
+#
+
+sensor:
+  - platform: dht
+    id: ${param_dht_id}
+    model: ${param_dht_model}
+    pin:
+      number: ${param_dht_gpio}
+      mode: INPUT
+    temperature:
+      name: "SENSOR - Temperature"
+      unit_of_measurement: "°C"
+      icon: mdi:thermometer
+      accuracy_decimals: 1
+    humidity:
+      name: "SENSOR - Humidity"
+      unit_of_measurement: "%"
+      icon: mdi:water-percent
+      accuracy_decimals: 1
+    update_interval: ${param_dht_update_interval}

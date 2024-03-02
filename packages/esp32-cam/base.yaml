@@ -6,6 +6,8 @@
 #
 # I'll not even try to document all pins for the camera, but I'll say that it
 # is compative with Thinker-AI example from esphome documentation.
+#
+# This board has an SD-card slot but esphome does not seem to have support for SD-cards
 
 esp32:
   board: esp32dev # not sure there is a better one
@@ -63,5 +65,3 @@ packages:
       param_esp32_camera_idleframerate: "0.05 fps"
       param_esp32_camera_resolution: "1024x768"
       param_esp32_camera_jpegquality: "35"
-
-# TODO: add SD-card slot support

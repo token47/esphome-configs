@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "Bare ESP32 Module (ESP32-WROOM-32)"
+  area: "Somewhere"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/bare-esp32-module/base.yaml
+  actions: !include esphome-configs/packages/bare-esp32-module/actions.yaml
+
+# Any customization go here
