@@ -3,11 +3,31 @@
 # You need to refer to this package before the board specific packages
 # so they can override stuff here (for example disabling uart in logger)
 
-# Enable OTA (this is native OTA on specific port, different from OTA via webserver)
+# The ESPHome native API is used to communicate with clients directly,
+# with a highly-optimized network protocol. Currently, only the ESPHome tool,
+# Home Assistant and ioBroker use this native API.
+# Therefore, it is not enabled by default, you can always enable it in each
+# main configuration file.
+# BEWARE: if you enable this and don't set reboot_timeout to '0s', the
+# device will reboot each 15min if there are no clients (i.e. HomeAssistant)
+# connected to the api. On the other hand, if you do intend to make use of it,
+# then leave reboot_timeout at default value because it can help recovering
+# from situations where esphome thinks wifi is ok but it is not and no clients
+# can connect to it (this is a documented issue).
+#api:
+#  reboot_timeout: 0s
+
+# Enable OTA (this is native OTA, different from OTA via webserver)
 ota:
 
 # Enable the webserver on default port 80
 web_server:
+
+# Activates /metrics endpoint in the already enabled web server, for direct
+# prometheus data scraping.
+# Keeping this disabled by default, please enable it in the main config file
+# per device if needed.
+#prometheus:
 
 # Enable logger component
 logger:
