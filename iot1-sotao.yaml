@@ -25,6 +25,9 @@ packages:
       param_ultrassonic_echo_pin: "GPIO12"
       param_ultrasonic_update_interval: "60s"
 
+# I'm using HomeAssistant with this one
+api:
+
 sensor:
   # add some filters to ultrasonic sensor
   - id: !extend ultrasonic_sensor
