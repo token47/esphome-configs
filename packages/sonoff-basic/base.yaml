@@ -1,6 +1,6 @@
 # Hardware:
 # - brand: Sonoff, model: Basic, module: n/a, MCU: ESP-8266
-#   (Basic R1, R2, R3 and R4 should have the same hardware)
+#   (Basic R1, R2 and R3 should have the same hardware, R4 probably different but not sure)
 #
 # Hardware info: https://devices.esphome.io/devices/Sonoff-BASIC-R2-v1.4
 #
