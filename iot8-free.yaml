@@ -1,0 +1,12 @@
+esphome:
+  name: iot8
+  comment: "Sonoff Mini R4 Extreme"
+  area: "free"
+
+packages:
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  base: !include packages/sonoff-minir4/base.yaml
+  actions: !include packages/sonoff-minir4/actions.yaml
+
+# Any customization go here

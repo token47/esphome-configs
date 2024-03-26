@@ -1,0 +1,12 @@
+# This board has 1 leds, and it is controllable (status_led)
+
+# Actions defined here:
+# - press any of the 2 switches, toggle the relay
+
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      - switch.toggle: relay
+  - id: !extend switch_s1
+    on_press:
+      - switch.toggle: relay

@@ -1,0 +1,55 @@
+# Hardware:
+# - brand: Sonoff, model: Mini R4 Extreme, module: n/a, MCU: ESP-32
+#   (Prior models Mini/MiniR2/MiniR3 all had Esp8266 cores)
+#
+# Hardware info: https://devices.esphome.io/devices/Sonoff-MiniR4-Extreme
+#
+# Features: One led, one relay, one internal switch, one external switch
+# (note: it only has the controllable led, not the led tied to the relay)
+#
+# +--------+------------------------------------------+-------------------------------+
+# | GPIO   | Function                                 | Notes                         |
+# +--------+------------------------------------------+-------------------------------+
+# | GPIO0  | Internal Push Button w/ hardware pullup  | no need to use pull-up in sw  |
+# | GPIO1  | RX for UART                              | Free GPIO if uart disabled    |
+# | GPIO3  | TX for UART                              | Free GPIO if uart disabled    | 
+# | GPIO19 | Blue LED, inverted                       |                               |
+# | GPIO26 | Relay, non-inverted                      |                               |
+# | GPIO29 | External Switch (S1) w/ hardware pullup  | no need to use pull-up in sw  |
+# +--------+------------------------------------------+-------------------------------+
+# There does not seem to be any other GPIO routed to any test point, sadly
+
+esp32:
+  board: esp32dev
+
+status_led:
+  id: led
+  pin:
+    number: GPIO19
+    mode: OUTPUT
+    inverted: True
+
+binary_sensor:
+  - platform: gpio
+    name: "Push Button"
+    id: push_button
+    pin:
+      number: GPIO0
+      mode: INPUT
+      inverted: True
+  - platform: gpio
+    name: "External Switch S1"
+    id: switch_s1
+    pin:
+      number: GPIO27
+      mode: INPUT
+      inverted: True
+
+switch:
+  - platform: gpio
+    name: "Relay"
+    id: relay
+    pin:
+      number: GPIO26
+      mode: OUTPUT
+      inverted: False
