@@ -1,0 +1,12 @@
+esphome:
+  name: somename
+  comment: "Sonoff RF Bridge"
+  area: "somewhere"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/sonoff-rfbridge/base.yaml
+  actions: !include esphome-configs/packages/sonoff-rfbridge/actions.yaml
+
+# Any customization go here

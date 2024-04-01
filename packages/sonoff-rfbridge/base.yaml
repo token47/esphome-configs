@@ -1,0 +1,69 @@
+# Hardware:
+# - brand: Sonoff, model: RF Bridge, module: n/a, MCU: ESP-8285
+#
+# Hardware info: https://devices.esphome.io/devices/Sonoff-RF-Bridge
+#
+# Features: One led, one internal switch, RF 433MHz transceiver
+#           (second led and buzzer are controlled directly by RF chip)
+#
+# Note: original board (without any modifications) will receive and transmit
+#       codes using a secondary chip connected via UART at 19200 baud.
+#       There are some possible modifications to this board, including:
+#       - flashing alternative firmware on secondary chip to extend the
+#         amount of codes that can be received (like Portisch for the R1 v1.0
+#         or R2 v1.0 boards, or RF-Bridge-OB38S003 for R2 v2.2 boards), but
+#         nothing changes regarding to hardware config so this base file can
+#         still be used for those modifications
+#       - completely bypassing secondary chip using the Direct hack and
+#         bringing both RF antennas RX and TX signals directly to GPIO 4 and 5
+#         of the ESP microcontroller, and then using remote_receiver and
+#         remote_transmitter esphome modules instead of rfbridge one. In that
+#         case this base file is not suitable, you need a modified one.
+#
+# +--------+------------------------------------------+-------------------------------+
+# | GPIO   | Function                                 | Notes                         |
+# +--------+------------------------------------------+-------------------------------+
+# | GPIO0  | Internal Push Button w/ hardware pullup  | no need to use pull-up in sw  |
+# | GPIO1  | TX for UART                              | Free GPIO if uart disabled    |
+# | GPIO2  | n/a                                      | available on header as Log    |
+# | GPIO3  | RX for UART                              | Free GPIO if uart disabled    | 
+# | GPIO4  | n/a                                      | available on header as USBRXD |
+# | GPIO5  | n/a                                      | available on header as USBTXD |
+# | GPIO12 | n/a                                      | available on test pad         |
+# | GPIO13 | Blue LED, inverted                       |                               |
+# | GPIO14 | n/a                                      | available on test pad         |
+# +--------+------------------------------------------+-------------------------------+
+
+esp8266:
+  board: esp8285
+
+# This board uses the RX/TX pins for RF chip and cannot log over uart
+logger:
+  baud_rate: 0
+
+uart:
+  id: rf_uart_bus
+  tx_pin: GPIO1
+  rx_pin: GPIO3
+  baud_rate: 19200
+  stop_bits: 1
+
+status_led:
+  id: led
+  pin:
+    number: GPIO13
+    mode: OUTPUT
+    inverted: True
+
+binary_sensor:
+  - platform: gpio
+    name: "Push Button"
+    id: push_button
+    pin:
+      number: GPIO0
+      mode: INPUT
+      inverted: True
+
+rf_bridge:
+  id: rf_bridge_transceiver
+  uart_id: rf_uart_bus

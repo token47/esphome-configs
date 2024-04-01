@@ -1,0 +1,47 @@
+# This board has 1 leds, and it is controllable (status_led)
+
+# Actions defined here:
+
+# A bunch of text sensors to show the RF code on the web interface
+text_sensor:
+  - platform: template
+    id: rf_sync_data
+    name: "Last RF Code - sync 0x0000"
+  - platform: template
+    id: rf_low_data
+    name: "Last RF Code - low 0x0000" 
+  - platform: template
+    id: rf_high_data
+    name: "Last RF Code - high 0x0000"
+  - platform: template
+    id: rf_code_data
+    name: "Last RF Code - code 0x000000"
+
+rf_bridge:
+  # no need to !extend on this one, just add/override
+  on_code_received:
+    then:
+      - text_sensor.template.publish:
+          id: rf_sync_data
+          state: !lambda 'char buffer [10]; return itoa(data.sync,buffer,16);'
+      - text_sensor.template.publish:
+          id: rf_low_data
+          state: !lambda 'char buffer [10]; return itoa(data.low,buffer,16);'
+      - text_sensor.template.publish:
+          id: rf_high_data
+          state: !lambda 'char buffer [10]; return itoa(data.high,buffer,16);'
+      - text_sensor.template.publish:
+          id: rf_code_data
+          state: !lambda 'char buffer [10]; return itoa(data.code,buffer,16);'      
+      #- if:
+      #    condition:
+      #      lambda: |-
+      #        return data.code == 0x91EE96E;
+      #    then:
+      #      - switch.turn_on: xxx
+
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      then:
+        - rf_bridge.learn

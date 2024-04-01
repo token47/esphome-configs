@@ -1,0 +1,18 @@
+esphome:
+  name: iot-test-rfbridgewhite
+  comment: "Sonoff RF Bridge"
+  area: "Unknown"
+
+packages:
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  base: !include packages/sonoff-rfbridge/base.yaml
+  actions: !include packages/sonoff-rfbridge/actions.yaml
+
+# Any customization go here
+
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      then:
+        rf_bridge.learn
