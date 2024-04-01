@@ -1,6 +1,15 @@
 # This board has 1 leds, and it is controllable (status_led)
 
-# Actions defined here:
+# switch to a shared status led so we can use it for decoding tests
+status_led: !remove
+light:
+  - platform: status_led
+    id: shared_status_led
+    name: "Shared Status LED"
+    pin:
+      number: GPIO13
+      mode: OUTPUT
+      inverted: True
 
 # A bunch of text sensors to show the RF code on the web interface
 text_sensor:
@@ -38,10 +47,13 @@ rf_bridge:
       #      lambda: |-
       #        return data.code == 0x91EE96E;
       #    then:
-      #      - switch.turn_on: xxx
+      #      - light.toggle: shared_status_led
+
 
 binary_sensor:
   - id: !extend push_button
     on_press:
       then:
-        - rf_bridge.learn
+        # only works if you are using the Portisch firmware, otherwise ignored
+        - rf_bridge.beep:
+            duration: 500

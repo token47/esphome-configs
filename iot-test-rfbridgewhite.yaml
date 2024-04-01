@@ -11,8 +11,25 @@ packages:
 
 # Any customization go here
 
-binary_sensor:
-  - id: !extend push_button
-    on_press:
-      then:
-        rf_bridge.learn
+rf_bridge:
+  # no need to !extend on this one, just add/override
+  on_code_received:
+    then:
+      # just a test...
+      - if:
+          condition:
+            lambda: |-
+              return data.code == 0xd37151;
+          then:
+            - light.toggle: shared_status_led
+            #- rf_bridge.send_code:
+            #    sync: 0x64EE
+            #    low: 0x0322
+            #    high: 0x097A
+            #    code: 0x42556C
+
+#binary_sensor:
+#  - id: !extend push_button
+#    on_press:
+#      then:
+#        rf_bridge.learn
