@@ -29,8 +29,9 @@
 # - These are the GPIOs that you can actually access outside of the module
 #   the chip inside has many more free GPIOs but they are not exposed so
 #   you cannot actually use them for anything useful.
-# - On this module, flashing is done through TX2/RX2 (testpoints), not the ones on the bottom
-# - GPIOA_0 (PA0) cannot be pulled high on boot!
+# - In this module, UART TX and RX pins are used for led and push button with pull-up,
+#   one of the reasons why it's not easy to flash it in place without desoldering and
+#   removing the module from the board
 
 esp8266:
   board: esp8285
