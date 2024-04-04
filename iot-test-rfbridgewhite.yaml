@@ -28,8 +28,8 @@ rf_bridge:
             #    high: 0x097A
             #    code: 0x42556C
 
-#binary_sensor:
-#  - id: !extend push_button
-#    on_press:
-#      then:
-#        rf_bridge.learn
+binary_sensor:
+  - id: !extend push_button
+    on_press:
+      then:
+        rf_bridge.learn

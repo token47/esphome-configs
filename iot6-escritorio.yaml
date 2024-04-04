@@ -6,6 +6,7 @@ esphome:
 packages:
   common: !include packages/common.yaml
   wifi: !include packages/wifi.yaml
+  mqtt: !include packages/mqtt.yaml
   base: !include packages/ekaza-t206m/base.yaml
   actions: !include packages/ekaza-t206m/actions.yaml
 

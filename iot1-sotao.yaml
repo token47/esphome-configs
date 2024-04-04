@@ -26,7 +26,7 @@ packages:
       param_ultrasonic_update_interval: "60s"
 
 # I'm using HomeAssistant with this one
-api:
+#api:
 
 sensor:
   # add some filters to ultrasonic sensor
