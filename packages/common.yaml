@@ -3,8 +3,8 @@
 # You need to refer to this package before the board specific packages
 # so they can override stuff here (for example disabling uart in logger)
 
-# The ESPHome native API is used to communicate with clients directly,
-# with a highly-optimized network protocol. Currently, only the ESPHome tool,
+# The ESPHome native API is used to communicate with clients directly, with
+# a highly-optimized network protocol. Currently, only the ESPHome tool,
 # Home Assistant and ioBroker use this native API.
 # Therefore, it is not enabled by default, you can always enable it in each
 # main configuration file.
@@ -14,6 +14,8 @@
 # then leave reboot_timeout at default value because it can help recovering
 # from situations where esphome thinks wifi is ok but it is not and no clients
 # can connect to it (this is a documented issue).
+# You probably do not need this "api:" feature if you are using MQTT instead
+# (they are rearely used together).
 #api:
 #  reboot_timeout: 0s
 
