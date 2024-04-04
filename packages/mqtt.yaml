@@ -1,7 +1,17 @@
-# Simple mqtt config, you can extend it in your main config
-# or just ignore this one and define your own
+# Simple mqtt config
+# Options defined here should be common to all devices
+# Specific device options you can specify in your main config
+# or just ignore this package entirely and define a complete one
 
 mqtt:
+  id: mqtt_client
   broker: !secret mqtt_broker
   username: !secret mqtt_username
   password: !secret mqtt_password
+  # Home Assistant automatic discovery via MQTT ('/homeassistant' topic)
+  discovery: true # True/False, default is True
+  # Make unique_ids really unique across all devices (HA needs this)
+  discovery_unique_id_generator: mac # legacy/mac, default is legacy
+  # Changes how object_ids are created (name vs device_name_friendly_name)
+  discovery_object_id_generator: device_name # none/device_name, default is none
+  reboot_timeout: 15min # default is 15min, use 0s to disable reboots
