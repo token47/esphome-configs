@@ -1,0 +1,16 @@
+esphome:
+  name: iot9
+  comment: "D1 Mini (ESP-12E)"
+  area: "String Art Ring"
+
+packages:
+  common: !include packages/common.yaml
+  wifi: !include packages/wifi.yaml
+  base: !include packages/wemosd1mini/base.yaml
+  actions: !include packages/wemosd1mini/actions.yaml
+
+# I'm using HomeAssistant with this one
+api:
+  reboot_timeout: 0s
+  password: strartringpass
+

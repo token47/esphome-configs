@@ -1,0 +1,13 @@
+esphome:
+  name: somename
+  comment: "Wemos D1 Mini (ESP-12E)"
+  area: "Somewhere"
+
+packages:
+  common: !include esphome-configs/packages/common.yaml
+  wifi: !include esphome-configs/packages/wifi.yaml
+  base: !include esphome-configs/packages/wemosd1mini/base.yaml
+  actions: !include esphome-configs/packages/wemosd1mini/actions.yaml
+
+# Any customization go here
+
