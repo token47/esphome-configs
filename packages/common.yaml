@@ -60,6 +60,9 @@ text_sensor:
     name: "ESPHome Build"
 
 sensor:
-  - platform: uptime
+  - id: uptime_sec
     name: "Uptime"
+    platform: uptime
+    unit_of_measurement: "seconds"
     update_interval: 60s
+
