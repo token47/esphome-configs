@@ -1,7 +1,7 @@
 esphome:
   name: iot9
   comment: "D1 Mini (ESP-12E)"
-  area: "String Art Ring"
+  area: "String Art LED Ring Controller"
 
 packages:
   common: !include packages/common.yaml
@@ -9,8 +9,94 @@ packages:
   base: !include packages/wemosd1mini/base.yaml
   actions: !include packages/wemosd1mini/actions.yaml
 
-# I'm using HomeAssistant with this one
+# API here is gonna be used by python library (aioesphomeapi), not HA
 api:
   reboot_timeout: 0s
   password: strartringpass
+  services:
+    - service: set_lcd1_page2_text
+      variables:
+        new_text: string
+      then:
+        - globals.set:
+            id: lcd1_page2_text
+            value: !lambda 'return new_text;'
 
+select:
+  - platform: template
+    id: lcd1_page
+    optimistic: true
+    initial_option: "1"
+    options:
+      - "1"
+      - "2"
+
+globals:
+  - id: lcd1_page2_text
+    type: std::string
+    initial_value: '"Waiting..."'
+
+light:
+  - id: ledring1
+    name: "LED Ring"
+    pin: GPIO2 # D4 on 'D1 mini'
+    platform: neopixelbus
+    variant: WS2812X
+    type: GRB
+    num_leds: 240
+    color_correct: [20%,20%,20%]
+    method:
+      # 'uart' makes 'pin:' above to be ignored and bus 1 forces GPIO2
+      type: esp8266_uart
+      bus: 1
+
+i2c:
+  sda: GPIO4 # D2 on 'D1 mini'
+  scl: GPIO5 # D1 on 'D1 mini'
+
+display:
+  - id: lcd1
+    platform: lcd_pcf8574
+    dimensions: 16x2
+    update_interval: 300ms
+    address: 0x27
+    lambda: |-
+      if (id(lcd1_page).state == "1") {
+        if (id(wifi_id).is_connected()) {
+          it.printf(0, 0, "%s", "Connected");
+        } else {
+          it.printf(0, 0, "%s", "NotConnec");
+        }
+        it.printf(10, 0, "%ddBm", WiFi.RSSI());
+        it.printf(0, 1, "%s", WiFi.localIP().toString().c_str());
+      } else if (id(lcd1_page).state == "2") {
+        it.printf(0, 0, "%s", id(lcd1_page2_text).c_str());
+      }
+
+binary_sensor:
+  - id: button1
+    platform: gpio
+    pin:
+      number: GPIO13 # D7 on 'D1 mini'
+      inverted: true
+      mode: INPUT_PULLUP
+    filters:
+      - delayed_on_off: 10ms
+    on_press:
+      - select.next: lcd1_page
+  - id: button2
+    platform: gpio
+    pin:
+      number: GPIO12 # D6 on 'D1 mini'
+      inverted: true
+      mode: INPUT_PULLUP
+    filters:
+      - delayed_on_off: 10ms
+  - id: button3
+    platform: gpio
+    pin:
+      number: GPIO14 # D5 on 'D1 mini'
+      inverted: true
+      mode: INPUT_PULLUP
+    filters:
+      - delayed_on_off: 10ms
